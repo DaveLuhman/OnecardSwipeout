@@ -1,5 +1,5 @@
 import HID from 'node-hid'
-import pkg from './libnut-core-develop/index.js';
+import pkg from './nut/index.js';
 const { typeString } = pkg
 
 
