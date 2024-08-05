@@ -1,5 +1,6 @@
 import HID from 'node-hid'
-import { typeString} from './libnut-core-develop/index.js'
+import pkg from './libnut-core-develop/index.js';
+const { typeString } = pkg
 
 
 const parseSwipeData = (data) => {
