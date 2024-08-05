@@ -1,5 +1,5 @@
 import HID from 'node-hid'
-import sendKeys from 'sendkeys-js'
+import { typeString} from './libnut-core-develop/index.js'
 
 
 const parseSwipeData = (data) => {
@@ -25,5 +25,5 @@ const swiper = await HID.HIDAsync.open(swiperPath)
 swiper.on('data', function(dataBuffer) {
     const swipeData = dataBuffer.toString('utf8')
     const onecardData = parseSwipeData(swipeData)
-    sendKeys.sync(onecardData.onecard)
+    typeString(onecardData.onecard)
 } )
