@@ -10,7 +10,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: min(min(max-content,available-size), max(min-content, 200px));
       margin: 0;
       flex-direction: column;
     }
@@ -22,16 +22,13 @@
       align-items: center;
       gap: 10px;
     }
-    .icon {
-      width: 32px;
-      height: 32px;
-    }
+
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="output">
-    <img src="img/favicon-32x32.png" alt="Icon" class="icon">
+    <img src="img/apple-touch-icon.png" alt="Icon" class="icon">
     <h1>Onecard Swiper</h1>
     <div id="data">
       <p>Swipe your card...</p>
@@ -40,7 +37,7 @@
   <script>
     const { ipcRenderer } = require('electron');
     ipcRenderer.on('swipe-data', (event, data) => {
-      document.getElementById('data').innerHTML = `<p><strong>Name:</strong> ${data.name}</p><p><strong>Onecard:</strong> ${data.onecard}</p>`;
+      document.getElementById('data').innerHTML = `<p><strong>Name:</strong> ${data.name}</p><p><strong>Onecard ID:</strong> ${data.onecard}</p>`;
     });
   </script>
 </body>
