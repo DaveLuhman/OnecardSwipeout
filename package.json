@@ -1,13 +1,12 @@
 {
-  "name": "magtekonecardswiper",
+  "name": "onecardswiper",
   "version": "1.0.0",
   "description": "Binds to a MagTek MSR (sureswipe) and parses onecard data to keystrokes",
-  "main": "index.js",
-  "type": "module",
+  "main": "main.js",
+  "type": "commonjs",
   "scripts": {
-    "build-deps": "cd ./nut && npm build",
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron .",
+    "package-win": "electron-packager . onecardSwiper --platform=win32 --arch=x64 --out=dist"
   },
   "author": "Dave Luhman",
   "license": "ISC",
@@ -15,5 +14,9 @@
     "node-gyp": "^10.2.0",
     "node-hid": "^3.1.0",
     "npm": "^10.8.2"
+  },
+  "devDependencies": {
+    "electron": "^31.3.1",
+    "electron-packager": "^17.1.2"
   }
 }
