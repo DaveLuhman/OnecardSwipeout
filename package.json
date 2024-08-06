@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron --inspect=9229 .",
     "package-win": "electron-packager . onecardSwiper --platform=win32 --arch=x64 --overwrite --out=dist",
-    "package-mac": "electron-packager . magtekOnecardSwiper --platform=darwin --arch=x64 --overwrite --out=dist"
+    "package-mac": "electron-packager . magtekOnecardSwiper --platform=darwin --arch=arm64 --overwrite --out=dist"
   },
   "author": "Dave Luhman",
   "license": "ISC",
