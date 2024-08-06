@@ -24,13 +24,15 @@ function createWindow() {
     });
     mainWindow.setIcon(appIcon);
     mainWindow.loadFile("index.html");
-    mainWindow.on("close", function () {
-      console.log("main window closing");
+    mainWindow.on("closed", function () {
+      console.log("main window closed");
       mainWindow = null;
       app.quit(); // Ensure the application exits when the window is closed
+      return
     });
   } catch {
-    process.exit(0);
+    console.log('error catcher quitting')
+    app.quit()
   }
 }
 
@@ -38,11 +40,12 @@ app.on("ready", createWindow);
 app.on("will-quit", function () {
   console.log("all windows closed");
   if (process.platform !== "darwin") {
-    process.exit(0);
+    console.log('process exit code 0 i should close now')
+    app.quit()
   }
 });
-app.on("quit", () => {
-  process.exit(0);
+app.on("quit", async () => {
+  await app.exit();
 });
 app.on("activate", function () {
   console.log("app is activated");

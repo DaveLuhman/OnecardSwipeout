@@ -5,9 +5,9 @@
   "main": "main.js",
   "type": "commonjs",
   "scripts": {
-    "start": "electron .",
-    "package-win": "electron-packager . onecardSwiper --platform=win32 --arch=x64 --out=dist",
-    "package-mac": "electron-packager . magtekOnecardSwiper --platform=darwin --arch=x64 --out=dist"
+    "start": "electron --inspect=9229 .",
+    "package-win": "electron-packager . onecardSwiper --platform=win32 --arch=x64 --overwrite --out=dist",
+    "package-mac": "electron-packager . magtekOnecardSwiper --platform=darwin --arch=x64 --overwrite --out=dist"
   },
   "author": "Dave Luhman",
   "license": "ISC",
