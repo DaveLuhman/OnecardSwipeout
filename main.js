@@ -1,4 +1,5 @@
 const { app, BrowserWindow, nativeImage, ipcMain } = require("electron");
+if (require('electron-squirrel-startup')) app.quit();
 const path = require("path");
 const HID = require("node-hid");
 const nut = require("./libnut.node");
