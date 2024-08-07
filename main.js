@@ -1,4 +1,4 @@
-const { app, BrowserWindow, nativeImage } = require("electron");
+const { app, BrowserWindow, nativeImage, ipcMain } = require("electron");
 const path = require("path");
 const HID = require("node-hid");
 const nut = require("./libnut.node");
@@ -21,6 +21,7 @@ function createWindow() {
         contextIsolation: false,
       },
       title: "Onecard Swiper",
+      alwaysOnTop: true, // Make the window always on top
     });
     mainWindow.setIcon(appIcon);
     mainWindow.loadFile("index.html");
@@ -28,11 +29,10 @@ function createWindow() {
       console.log("main window closed");
       mainWindow = null;
       app.quit(); // Ensure the application exits when the window is closed
-      return
     });
-  } catch {
-    console.log('error catcher quitting')
-    app.quit()
+  } catch (error) {
+    console.log('Error creating main window:', error.message);
+    app.quit();
   }
 }
 
@@ -40,8 +40,8 @@ app.on("ready", createWindow);
 app.on("will-quit", function () {
   console.log("all windows closed");
   if (process.platform !== "darwin") {
-    console.log('process exit code 0 i should close now')
-    app.quit()
+    console.log('Process exit code 0, should close now');
+    app.quit();
   }
 });
 app.on("quit", async () => {
@@ -81,19 +81,30 @@ const getMagtekSwiper = async () => {
       throw new Error("No Mag-Tek MSR was detected. Exiting Application");
     }
   } catch (error) {
-    console.error(error.trace + "/n" + error.message);
+    console.error(error.message);
+    throw error;
   }
 };
 
 const startListeningToSwiper = async () => {
-  const swiperPath = await getMagtekSwiper();
-  const swiper = await HID.HIDAsync.open(swiperPath);
-  swiper.on("data", function (dataBuffer) {
-    const swipeData = dataBuffer.toString("utf8");
-    const onecardData = parseSwipeData(swipeData);
-    typeString(onecardData.onecard);
-    mainWindow.webContents.send("swipe-data", onecardData);
-  });
+  try {
+    const swiperPath = await getMagtekSwiper();
+    const swiper = new HID.HID(swiperPath);
+    swiper.on("data", (dataBuffer) => {
+      try {
+        const swipeData = dataBuffer.toString("utf8");
+        const onecardData = parseSwipeData(swipeData);
+        typeString(onecardData.onecard);
+        mainWindow.webContents.send("swipe-data", onecardData);
+      } catch (error) {
+        mainWindow.webContents.send("error", error.message);
+      }
+    });
+  } catch (error) {
+    mainWindow.webContents.send("error", error.message);
+  }
 };
 
 startListeningToSwiper();
+
+ipcMain.on("reload-swiper", startListeningToSwiper);

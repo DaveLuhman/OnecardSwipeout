@@ -22,7 +22,10 @@
       align-items: center;
       gap: 10px;
     }
-
+    .error {
+      color: red;
+      font-weight: bold;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -38,6 +41,10 @@
     const { ipcRenderer } = require('electron');
     ipcRenderer.on('swipe-data', (event, data) => {
       document.getElementById('data').innerHTML = `<p><strong>Name:</strong> ${data.name}</p><p><strong>Onecard ID:</strong> ${data.onecard}</p>`;
+    });
+
+    ipcRenderer.on('error', (event, message) => {
+      document.getElementById('data').innerHTML = `<p class="error">Error: ${message}</p>`;
     });
   </script>
 </body>
