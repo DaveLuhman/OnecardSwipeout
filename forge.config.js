@@ -4,6 +4,7 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: './img/icon-256.ico'
   },
   rebuildConfig: {},
   makers: [
@@ -28,6 +29,12 @@ module.exports = {
     {
       name: '@electron-forge/plugin-auto-unpack-natives',
       config: {},
+    },
+    {
+      name: '@electron-forge/plugin-electronegativity',
+      config: {
+        isSarif: true
+      }
     },
     // Fuses are used to enable/disable various Electron functionality
     // at package time, before code signing the application
