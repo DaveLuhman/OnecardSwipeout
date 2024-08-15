@@ -8,7 +8,7 @@ const { typeString } = nut;
 let mainWindow;
 
 const appIcon = nativeImage.createFromPath(
-  path.join(__dirname, "img", "favicon-32x32.png")
+  path.join(__dirname, "img", "favicon-32.png")
 );
 
 function createWindow() {
