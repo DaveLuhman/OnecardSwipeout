@@ -12,10 +12,10 @@ const appIcon = nativeImage.createFromPath(
 )
 function createWindow() {
     try {
-        console.log('creating main window')
+        console.log('Creating main window')
         mainWindow = new BrowserWindow({
             width: 400,
-            height: 500,
+            height: 800,
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false,
@@ -29,7 +29,6 @@ function createWindow() {
             mainWindow = null
             app.quit() // Ensure the application exits when the window is closed
         })
-
         // Once the window is fully loaded, start the HID detection process
         mainWindow.webContents.on('did-finish-load', () => {
             console.log('Window fully loaded, starting HID detection...')
@@ -43,13 +42,9 @@ function createWindow() {
 async function initializeSwiper() {
     console.log('Looking for Mag-Tek Swiper or other HID devices...')
     let HIDPath = await getMagtekSwiper()
-
     if (Array.isArray(HIDPath)) {
-        console.log(
-            'Multiple HID devices detected, sending select-hid event to renderer.'
-        )
+        console.log('Multiple HID devices detected, sending select-hid event to renderer.')
         mainWindow.webContents.send('select-hid', HIDPath)
-
         ipcMain.once('hid-selection', async (event, selectedPath) => {
             console.log('HID device selected:', selectedPath)
             HIDPath = selectedPath

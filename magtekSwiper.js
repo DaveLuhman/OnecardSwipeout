@@ -21,12 +21,10 @@ const getMagtekSwiper = async () => {
     try {
         const devices = HID.devices()
         let devicePath
-
         const magtekDevice = devices.find(
             (device) =>
                 device.vendorId === 2049 || device.manufacturer === 'Mag-Tek'
         )
-
         if (magtekDevice) {
             devicePath = magtekDevice.path
         } else {

@@ -1,6 +1,6 @@
 {
   "name": "onecard-swiper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Binds to a MagTek MSR (sureswipe) and parses onecard data to keystrokes",
   "main": "main.js",
   "type": "commonjs",
