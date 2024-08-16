@@ -15,7 +15,7 @@ function createWindow() {
         console.log('Creating main window')
         mainWindow = new BrowserWindow({
             width: 400,
-            height: 800,
+            height: 600,
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false,
@@ -49,6 +49,7 @@ async function initializeSwiper() {
             console.log('HID device selected:', selectedPath)
             HIDPath = selectedPath
             try {
+                mainWindow.setSize(400, 500)
                 await startListeningToSwiper(HIDPath, onSwipe)
             } catch (error) {
                 console.error(
@@ -101,7 +102,6 @@ app.on('will-quit', function () {
 })
 app.on('quit', async () => {
     app.exit()
-    process.exit()
 })
 app.on('activate', function () {
     console.log('app is activated')
