@@ -25,7 +25,7 @@ The application automatically detects connected MagTek HID devices, allows the u
 - **libnut.node**: Open-source
 
 ### **High-Level Architecture**
-![Architecture Diagram](architecture-diagram.png)
+#### Architecture Diagram
 ```mermaid
     graph TD
     subgraph Electron App
