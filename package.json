@@ -1,5 +1,5 @@
 {
-  "name": "onecardswiper",
+  "name": "onecard-swiper",
   "version": "1.0.0",
   "description": "Binds to a MagTek MSR (sureswipe) and parses onecard data to keystrokes",
   "main": "main.js",
@@ -11,12 +11,12 @@
     "make": "electron-forge make"
   },
   "author": "Dave Luhman",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
+    "inquirer": "^10.1.8",
     "node-gyp": "^10.2.0",
-    "node-hid": "^3.1.0",
-    "npm": "^10.8.2"
+    "node-hid": "^3.1.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",

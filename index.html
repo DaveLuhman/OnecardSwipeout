@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Onecard Swiper</title>
   <style>
@@ -10,10 +11,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: min(min(max-content,available-size), max(min-content, 200px));
+      height: min(min(max-content, available-size), max(min-content, 200px));
       margin: 0;
       flex-direction: column;
     }
+
     #output {
       text-align: center;
       font-size: 1.2em;
@@ -22,6 +24,11 @@
       align-items: center;
       gap: 10px;
     }
+
+    #hid-selector-parent {
+      display: none;
+    }
+
     .error {
       color: red;
       font-weight: bold;
@@ -29,23 +36,47 @@
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div id="output">
-    <img src="img/icon-192.png" alt="Icon" class="icon">
+    <img src="img/icon-180.png" alt="MATC Shield Logo" class="icon">
     <h1>Onecard Swiper</h1>
     <div id="data">
       <p>Swipe your card...</p>
     </div>
+    <div id="hid-selector-parent">
+      <p>Select A HID MSR from the list</p>
+      <select id="hid-selector"></select>
+      <button type="submit" id="submit-hid">Submit</button>
+    </div>
   </div>
   <script>
     const { ipcRenderer } = require('electron');
+
     ipcRenderer.on('swipe-data', (event, data) => {
+      console.log('Received swipe-data event:', data);
       document.getElementById('data').innerHTML = `<p><strong>Name:</strong> ${data.name}</p><p><strong>Onecard ID:</strong> ${data.onecard}</p>`;
     });
 
     ipcRenderer.on('error', (event, message) => {
+      console.log('Received error event:', message);
       document.getElementById('data').innerHTML = `<p class="error">Error: ${message}</p>`;
+    });
+
+    ipcRenderer.on('select-hid', (event, data) => {
+      console.log('Received select-hid event with data:', data);
+      const hidSelectorOptions = data.map(option => `<option value="${option.path}">${option.manufacturer} ${option.product}</option>`);
+      document.getElementById("hid-selector").innerHTML = hidSelectorOptions.join('\n');
+      document.getElementById("hid-selector-parent").style.display = "block";
+    });
+
+    document.getElementById("submit-hid").addEventListener("click", () => {
+      const hidSelection = document.getElementById('hid-selector').value;
+      console.log('Submitting HID selection:', hidSelection);
+      ipcRenderer.send('hid-selection', hidSelection);
+      document.getElementById("hid-selector-parent").style.display = "none";
     });
   </script>
 </body>
+
 </html>
