@@ -104,7 +104,7 @@ The application consists of the following main components:
 - **Operating System**: Windows 10/11
 
 ### **Installation Steps**
-1. Run the installer onecard-swipeout-setup-win32.exe
+1. Run the MSI Installer downloaded from https://Github.com/DaveLuhman/OnecardSwipeout/releases
 
 
 ### **Configuration**
