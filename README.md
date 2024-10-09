@@ -1,5 +1,5 @@
 ### **Project Name**
-**Onecard Swipeout** - Version 1.0.0
+**Onecard Swipeout** - Version 1.1.0
 
 ### **Purpose**
 Onecard Swipeout is an Electron-based desktop application designed to detect and interface with HID (Human Interface Device) readers, particularly MagTek card swipe readers. It processes card swipe data to extract user identification information and displays it to the user, as well as emulating keystrokes of the 7-digit onecard ID# from the swiped card, if available.

@@ -1,6 +1,6 @@
 const { app, BrowserWindow, nativeImage, ipcMain } = require('electron')
 if (require('electron-squirrel-startup')) app.quit()
-const path = require('path')
+const path = require('node:path')
 const nut = require('./libnut.node')
 const { typeString } = nut
 const { startListeningToSwiper, getMagtekSwiper, closeSwiper } = require('./magtekSwiper.js')
@@ -24,7 +24,7 @@ function createWindow() {
         })
         mainWindow.setIcon(appIcon)
         mainWindow.loadFile('index.html')
-        mainWindow.on('closed', function () {
+        mainWindow.on('closed', () => {
             console.log('main window closed')
             mainWindow = null
             app.quit() // Ensure the application exits when the window is closed
@@ -93,7 +93,7 @@ app.on('before-quit', () => {
 
 app.on('ready', createWindow)
 
-app.on('will-quit', function () {
+app.on('will-quit', () => {
     console.log('all windows closed')
     if (process.platform !== 'darwin') {
         console.log('Process exit code 0, should close now')
@@ -103,7 +103,7 @@ app.on('will-quit', function () {
 app.on('quit', async () => {
     app.exit()
 })
-app.on('activate', function () {
+app.on('activate', () => {
     console.log('app is activated')
     if (mainWindow === null) {
         createWindow()
